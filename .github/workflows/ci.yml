@@ -1,0 +1,52 @@
+name: AI Software Engineering Agent CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  backend-agent-tests:
+    name: Backend & 5-Agent Self-Healing Pytest Suite
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install backend dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r backend/requirements.txt
+
+      - name: Run 5-Agent LangGraph & Self-Healing Pipeline Tests
+        working-directory: backend
+        run: pytest tests -v
+
+      - name: Verify CLI Runner on Sample Buggy Repository
+        working-directory: backend
+        run: python cli.py --repo sample:graph_shortest_path_bug
+
+  frontend-build:
+    name: React Frontend Build Verification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install and build React frontend
+        working-directory: frontend
+        run: |
+          npm install
+          npm run build

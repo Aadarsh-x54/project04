@@ -136,3 +136,36 @@ def test_self_healing_multi_agent_pipeline_graph_router(db_session):
     assert run.code_review["verdict"] == "APPROVED"
     assert "graph_router.py" in run.pull_request["files_changed"]
 
+
+def test_custom_inline_code_sandbox_pipeline(db_session):
+    """Verify running the 5-agent pipeline on custom inline Python code submitted via `custom_files`."""
+    custom_files = {
+        "metrics.py": (
+            "def compute_average(values: list[float]) -> float:\n"
+            "    total = sum(values)\n"
+            "    return total / len(values)\n"
+        ),
+        "test_metrics.py": (
+            "from metrics import compute_average\n\n"
+            "def test_compute_average_non_empty():\n"
+            "    assert compute_average([10.0, 20.0]) == 15.0\n\n"
+            "def test_compute_average_empty_guard():\n"
+            "    assert compute_average([]) == 0.0\n"
+        ),
+    }
+    req = RunAgentRequest(
+        repo_source="custom:student_metrics_sandbox",
+        issue_description="compute_average([]) raises ZeroDivisionError when values list is empty.",
+        error_logs="ZeroDivisionError: division by zero in compute_average",
+        llm_provider="mock",
+        max_iterations=2,
+        demonstrate_self_healing=False,
+        custom_files=custom_files,
+    )
+    run = execute_agent_run(req, db=db_session)
+    assert run.status == "COMPLETED"
+    assert run.tests_passed is True
+    assert run.code_review["verdict"] == "APPROVED"
+    assert "return 0.0 if len(values) == 0 else total / len(values)" in run.proposed_changes["unified_diff"]
+
+

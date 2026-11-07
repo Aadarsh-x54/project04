@@ -3,24 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI Software Engineering Agent — Unified Multi-Agent IDE</title>
+    <title>AI Software Engineering Agent</title>
     <style>
-      :root {
-        --bg-primary: #0b0f19;
-        --bg-secondary: #111827;
-        --bg-card: #161f33;
-        --bg-elevated: #1e293b;
-        --border-color: #283548;
-        --text-primary: #f1f5f9;
-        --text-secondary: #94a3b8;
-        --accent-blue: #38bdf8;
-        --accent-indigo: #6366f1;
-        --accent-green: #10b981;
-        --accent-amber: #f59e0b;
-        --accent-red: #ef4444;
-        --accent-purple: #a855f7;
-      }
-
       * {
         box-sizing: border-box;
         margin: 0;
@@ -28,363 +12,216 @@
       }
 
       body {
-        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        background-color: var(--bg-primary);
-        color: var(--text-primary);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background: #ffffff;
+        color: #000000;
         line-height: 1.5;
       }
 
       code, pre {
-        font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+        font-family: Consolas, "Courier New", monospace;
       }
 
-      .app-shell {
-        min-height: 100vh;
+      .header {
+        border-bottom: 2px solid #000000;
+        padding: 1rem 1.5rem;
         display: flex;
-        flex-direction: column;
-      }
-
-      .topbar {
-        background: rgba(17, 24, 39, 0.92);
-        border-bottom: 1px solid var(--border-color);
-        padding: 0.85rem 1.75rem;
-        display: flex;
-        align-items: center;
         justify-content: space-between;
-        position: sticky;
-        top: 0;
-        z-index: 20;
-        backdrop-filter: blur(8px);
-      }
-
-      .brand {
-        display: flex;
         align-items: center;
-        gap: 0.85rem;
+        background: #ffffff;
       }
 
-      .brand-icon {
-        width: 38px;
-        height: 38px;
-        border-radius: 10px;
-        background: linear-gradient(135deg, var(--accent-indigo), var(--accent-blue));
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 800;
-        font-size: 1rem;
-        color: #fff;
-        box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
-      }
-
-      .brand-title {
-        font-size: 1.1rem;
+      .header-title {
+        font-size: 1.15rem;
         font-weight: 700;
-        letter-spacing: -0.01em;
+        letter-spacing: -0.02em;
       }
 
-      .brand-subtitle {
-        font-size: 0.78rem;
-        color: var(--text-secondary);
+      .header-sub {
+        font-size: 0.8rem;
+        color: #444444;
       }
 
-      .status-pills {
-        display: flex;
-        gap: 0.6rem;
-        align-items: center;
-        flex-wrap: wrap;
-      }
-
-      .pill {
+      .badge {
+        display: inline-block;
         font-size: 0.75rem;
-        padding: 0.28rem 0.65rem;
-        border-radius: 999px;
-        background: var(--bg-elevated);
-        border: 1px solid var(--border-color);
-        color: var(--text-secondary);
-        display: inline-flex;
-        align-items: center;
-        gap: 0.35rem;
+        font-weight: 600;
+        padding: 0.2rem 0.55rem;
+        border: 1px solid #000000;
+        background: #ffffff;
+        color: #000000;
       }
 
-      .pill.green {
-        border-color: rgba(16, 185, 129, 0.4);
-        color: #34d399;
-        background: rgba(16, 185, 129, 0.1);
+      .badge.inverted {
+        background: #000000;
+        color: #ffffff;
       }
 
-      .pill.blue {
-        border-color: rgba(56, 189, 248, 0.4);
-        color: #38bdf8;
-        background: rgba(56, 189, 248, 0.1);
-      }
-
-      .pill.amber {
-        border-color: rgba(245, 158, 11, 0.4);
-        color: #fbbf24;
-        background: rgba(245, 158, 11, 0.12);
-      }
-
-      .pill.red {
-        border-color: rgba(239, 68, 68, 0.4);
-        color: #f87171;
-        background: rgba(239, 68, 68, 0.12);
-      }
-
-      .main-layout {
-        display: grid;
-        grid-template-columns: 390px 1fr;
-        gap: 1.25rem;
-        padding: 1.25rem 1.75rem;
-        max-width: 1680px;
-        width: 100%;
+      .container {
+        max-width: 1320px;
         margin: 0 auto;
-        flex: 1;
+        padding: 1.5rem;
+        display: grid;
+        grid-template-columns: 350px 1fr;
+        gap: 1.5rem;
       }
 
-      @media (max-width: 1100px) {
-        .main-layout {
+      @media (max-width: 960px) {
+        .container {
           grid-template-columns: 1fr;
         }
       }
 
-      .panel {
-        background: var(--bg-secondary);
-        border: 1px solid var(--border-color);
-        border-radius: 12px;
-        padding: 1.15rem;
+      .box {
+        border: 1px solid #000000;
+        background: #ffffff;
+        padding: 1rem;
+        margin-bottom: 1rem;
       }
 
-      .panel-title {
-        font-size: 0.92rem;
-        font-weight: 600;
+      .box-title {
+        font-size: 0.9rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        border-bottom: 1px solid #000000;
+        padding-bottom: 0.5rem;
         margin-bottom: 0.85rem;
         display: flex;
-        align-items: center;
         justify-content: space-between;
-        color: var(--text-primary);
+        align-items: center;
       }
 
-      .form-group {
-        margin-bottom: 0.9rem;
+      .field {
+        margin-bottom: 0.8rem;
       }
 
-      .form-label {
+      .label {
         display: block;
         font-size: 0.78rem;
-        font-weight: 600;
-        color: var(--text-secondary);
-        margin-bottom: 0.35rem;
+        font-weight: 700;
+        margin-bottom: 0.3rem;
+        color: #000000;
       }
 
       .input, .select, .textarea {
         width: 100%;
-        background: var(--bg-primary);
-        border: 1px solid var(--border-color);
-        color: var(--text-primary);
-        border-radius: 8px;
-        padding: 0.55rem 0.75rem;
+        border: 1px solid #000000;
+        background: #ffffff;
+        color: #000000;
+        padding: 0.5rem;
         font-size: 0.84rem;
-        transition: border-color 0.15s;
-      }
-
-      .input:focus, .select:focus, .textarea:focus {
-        outline: none;
-        border-color: var(--accent-blue);
       }
 
       .textarea {
-        min-height: 82px;
+        min-height: 75px;
         resize: vertical;
-        font-family: "JetBrains Mono", Consolas, monospace;
+        font-family: Consolas, monospace;
         font-size: 0.78rem;
       }
 
-      .preset-buttons {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 0.45rem;
-        margin-bottom: 0.85rem;
-      }
-
-      .btn-preset {
-        background: var(--bg-card);
-        border: 1px solid var(--border-color);
-        color: var(--text-primary);
-        padding: 0.5rem 0.65rem;
-        border-radius: 8px;
-        font-size: 0.76rem;
+      .btn {
+        border: 1px solid #000000;
+        background: #ffffff;
+        color: #000000;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.8rem;
         font-weight: 600;
         cursor: pointer;
         text-align: left;
-        transition: all 0.15s;
       }
 
-      .btn-preset:hover, .btn-preset.active {
-        border-color: var(--accent-blue);
-        background: rgba(56, 189, 248, 0.1);
+      .btn:hover, .btn.active {
+        background: #000000;
+        color: #ffffff;
       }
 
-      .btn-primary {
+      .btn-run {
         width: 100%;
-        padding: 0.7rem 1rem;
-        border-radius: 8px;
-        border: none;
-        background: linear-gradient(135deg, var(--accent-indigo), #4f46e5);
-        color: white;
-        font-weight: 600;
-        font-size: 0.9rem;
+        border: 2px solid #000000;
+        background: #000000;
+        color: #ffffff;
+        padding: 0.65rem 1rem;
+        font-size: 0.88rem;
+        font-weight: 700;
         cursor: pointer;
-        transition: opacity 0.15s;
-        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        text-align: center;
       }
 
-      .btn-primary:hover:not(:disabled) {
-        opacity: 0.95;
+      .btn-run:hover:not(:disabled) {
+        background: #ffffff;
+        color: #000000;
       }
 
-      .btn-primary:disabled {
-        opacity: 0.6;
+      .btn-run:disabled {
+        opacity: 0.5;
         cursor: not-allowed;
       }
 
-      .checkbox-row {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        font-size: 0.8rem;
-        color: var(--text-secondary);
-        margin-bottom: 0.65rem;
-        cursor: pointer;
-      }
-
-      .agent-flow-bar {
+      .pipeline-grid {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
-        gap: 0.65rem;
-        margin-bottom: 1.1rem;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
       }
 
-      @media (max-width: 900px) {
-        .agent-flow-bar {
+      @media (max-width: 800px) {
+        .pipeline-grid {
           grid-template-columns: 1fr 1fr;
         }
       }
 
-      .agent-node-card {
-        background: var(--bg-card);
-        border: 1px solid var(--border-color);
-        border-radius: 10px;
-        padding: 0.75rem;
+      .agent-step {
+        border: 1px solid #000000;
+        padding: 0.65rem;
+        background: #ffffff;
       }
 
-      .agent-node-card.done {
-        border-color: rgba(16, 185, 129, 0.45);
+      .agent-step.active-step {
+        background: #000000;
+        color: #ffffff;
       }
 
-      .agent-node-card.healed {
-        border-color: rgba(168, 85, 247, 0.55);
-        background: rgba(168, 85, 247, 0.08);
-      }
-
-      .agent-node-index {
-        font-size: 0.68rem;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        color: var(--accent-blue);
-        font-weight: 700;
-      }
-
-      .agent-node-name {
-        font-size: 0.84rem;
-        font-weight: 700;
-        margin: 0.15rem 0;
-      }
-
-      .agent-node-desc {
-        font-size: 0.72rem;
-        color: var(--text-secondary);
-      }
-
-      .tabs-nav {
+      .tabs {
         display: flex;
-        gap: 0.4rem;
-        border-bottom: 1px solid var(--border-color);
+        border-bottom: 1px solid #000000;
         margin-bottom: 1rem;
         flex-wrap: wrap;
       }
 
-      .tab-btn {
-        background: transparent;
+      .tab {
         border: none;
-        border-bottom: 2px solid transparent;
-        color: var(--text-secondary);
-        padding: 0.6rem 0.9rem;
-        font-size: 0.83rem;
-        font-weight: 600;
+        border-right: 1px solid #000000;
+        background: #ffffff;
+        color: #000000;
+        padding: 0.55rem 0.9rem;
+        font-size: 0.8rem;
+        font-weight: 700;
         cursor: pointer;
       }
 
-      .tab-btn:hover {
-        color: var(--text-primary);
+      .tab.active {
+        background: #000000;
+        color: #ffffff;
       }
 
-      .tab-btn.active {
-        color: var(--accent-blue);
-        border-bottom-color: var(--accent-blue);
-      }
-
-      .code-box {
-        background: #070a12;
-        border: 1px solid var(--border-color);
-        border-radius: 8px;
-        padding: 0.85rem;
-        overflow-x: auto;
+      .code-block {
+        border: 1px solid #000000;
+        background: #f7f7f7;
+        color: #000000;
+        padding: 0.75rem;
         font-size: 0.78rem;
-        line-height: 1.55;
-        max-height: 460px;
+        overflow-x: auto;
+        max-height: 420px;
         overflow-y: auto;
+        white-space: pre-wrap;
       }
 
-      .diff-line-add {
-        background: rgba(16, 185, 129, 0.16);
-        color: #6ee7b7;
-        display: block;
-        padding: 0 0.35rem;
-      }
-
-      .diff-line-del {
-        background: rgba(239, 68, 68, 0.16);
-        color: #fca5a5;
-        display: block;
-        padding: 0 0.35rem;
-      }
-
-      .diff-line-hunk {
-        color: #93c5fd;
-        display: block;
-        padding: 0 0.35rem;
-      }
-
-      .timeline-list {
-        display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
-      }
-
-      .timeline-card {
-        background: var(--bg-card);
-        border: 1px solid var(--border-color);
-        border-radius: 10px;
-        padding: 0.9rem 1rem;
-      }
-
-      .timeline-card.retry {
-        border-left: 4px solid var(--accent-amber);
-      }
-
-      .timeline-card.passed {
-        border-left: 4px solid var(--accent-green);
+      .item-row {
+        border: 1px solid #000000;
+        padding: 0.75rem;
+        margin-bottom: 0.6rem;
+        background: #ffffff;
       }
 
       .grid-2 {
@@ -393,7 +230,7 @@
         gap: 1rem;
       }
 
-      @media (max-width: 900px) {
+      @media (max-width: 800px) {
         .grid-2 {
           grid-template-columns: 1fr;
         }
@@ -404,13 +241,12 @@
     <div id="root"></div>
 
     <script>
-      // Self-contained Vanilla/Reactive UI mounted directly from unified FastAPI backend
-      const AGENT_PIPELINE = [
-        { key: "Code Understanding Agent", index: "Agent 01", name: "Code Understanding", desc: "AST parser, symbol map & pgvector indexing" },
-        { key: "Debugging Agent", index: "Agent 02", name: "Debugging Agent", desc: "Error log trace & root cause localization" },
-        { key: "Code Generation Agent", index: "Agent 03", name: "Code Generation", desc: "Synthesizes & refines patch from test feedback" },
-        { key: "Testing Agent", index: "Agent 04", name: "Testing Agent", desc: "Generates pytest suite & runs self-healing loop" },
-        { key: "Code Review Agent", index: "Agent 05", name: "Code Review & PR", desc: "Security/quality audit & Pull Request creation" },
+      const AGENTS = [
+        { num: "01", name: "Code Understanding", desc: "AST & Vector Index" },
+        { num: "02", name: "Debugging Agent", desc: "Root Cause Analysis" },
+        { num: "03", name: "Code Generation", desc: "Proposes Patch" },
+        { num: "04", name: "Testing Agent", desc: "Pytest Self-Heal Loop" },
+        { num: "05", name: "Code Review", desc: "Audit & Pull Request" },
       ];
 
       const state = {
@@ -418,24 +254,17 @@
         samples: [],
         runs: [],
         currentRun: null,
-        activeTab: "self_healing",
+        activeTab: "timeline",
         loading: false,
         error: "",
         repoSource: "sample:ecommerce_checkout_bug",
         issueDescription: "",
         errorLogs: "",
-        llmProvider: "auto",
-        apiKey: "",
-        githubToken: "",
-        createGithubPr: false,
         maxIterations: 3,
         demonstrateSelfHealing: true,
-        vectorQuery: "discount percentage subtotal coupon",
-        vectorResults: [],
-        copiedPr: false,
       };
 
-      function escapeHtml(str) {
+      function esc(str) {
         return String(str ?? "")
           .replace(/&/g, "&amp;")
           .replace(/</g, "&lt;")
@@ -443,34 +272,16 @@
           .replace(/"/g, "&quot;");
       }
 
-      function renderDiff(diffText) {
-        if (!diffText) return '<div class="code-box">No diff generated.</div>';
-        const lines = diffText.split("\n").map((line) => {
-          const esc = escapeHtml(line);
-          if (line.startsWith("+") && !line.startsWith("+++")) {
-            return `<span class="diff-line-add">${esc}</span>`;
-          }
-          if (line.startsWith("-") && !line.startsWith("---")) {
-            return `<span class="diff-line-del">${esc}</span>`;
-          }
-          if (line.startsWith("@@") || line.startsWith("---") || line.startsWith("+++")) {
-            return `<span class="diff-line-hunk">${esc}</span>`;
-          }
-          return `<span style="display:block;padding:0 0.35rem">${esc}</span>`;
-        });
-        return `<pre class="code-box">${lines.join("")}</pre>`;
-      }
-
-      async function initApp() {
+      async function init() {
         try {
-          const [hRes, sRes, rRes] = await Promise.all([
-            fetch("/api/health").then((r) => r.json()),
-            fetch("/api/samples").then((r) => r.json()),
-            fetch("/api/runs").then((r) => r.json()),
+          const [h, s, r] = await Promise.all([
+            fetch("/api/health").then((x) => x.json()),
+            fetch("/api/samples").then((x) => x.json()),
+            fetch("/api/runs").then((x) => x.json()),
           ]);
-          state.health = hRes;
-          state.samples = sRes.samples || [];
-          state.runs = rRes || [];
+          state.health = h;
+          state.samples = s.samples || [];
+          state.runs = r || [];
           if (state.samples.length > 0) {
             state.repoSource = state.samples[0].repo_source;
             state.issueDescription = state.samples[0].issue_description;
@@ -479,14 +290,14 @@
           if (state.runs.length > 0) {
             state.currentRun = state.runs[0];
           }
-        } catch (err) {
-          state.error = err.message || "Failed to load backend state";
+        } catch (e) {
+          state.error = e.message;
         }
         render();
       }
 
-      window.selectSample = function(idx) {
-        const s = state.samples[idx];
+      window.pickSample = function(i) {
+        const s = state.samples[i];
         if (!s) return;
         state.repoSource = s.repo_source;
         state.issueDescription = s.issue_description;
@@ -494,77 +305,22 @@
         render();
       };
 
-      window.selectRun = function(idx) {
-        const r = state.runs[idx];
-        if (!r) return;
-        state.currentRun = r;
+      window.pickRun = function(i) {
+        state.currentRun = state.runs[i];
         render();
       };
 
-      window.setTab = function(tab) {
-        state.activeTab = tab;
+      window.switchTab = function(t) {
+        state.activeTab = t;
         render();
       };
 
-      window.downloadPatch = function() {
-        const diff = state.currentRun?.proposed_changes?.unified_diff;
-        if (!diff) return;
-        const blob = new Blob([diff], { type: "text/x-diff;charset=utf-8" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = `${state.currentRun.repo_name}-${state.currentRun.id}.patch`;
-        a.click();
-        URL.revokeObjectURL(url);
-      };
-
-      window.copyPrMarkdown = function() {
-        const md = state.currentRun?.pull_request?.body_markdown;
-        if (!md) return;
-        navigator.clipboard.writeText(md);
-        state.copiedPr = true;
-        render();
-        setTimeout(() => {
-          state.copiedPr = false;
-          render();
-        }, 2000);
-      };
-
-      window.runVectorSearch = async function(e) {
-        e.preventDefault();
-        const qInput = document.getElementById("vector-query-input");
-        if (qInput) state.vectorQuery = qInput.value;
-        try {
-          const res = await fetch("/api/vector-search", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              run_id: state.currentRun ? state.currentRun.id : null,
-              query: state.vectorQuery,
-              top_k: 5,
-            }),
-          }).then((r) => r.json());
-          state.vectorResults = res.results || [];
-        } catch (err) {
-          state.error = err.message;
-        }
-        render();
-      };
-
-      window.submitRunForm = async function(e) {
+      window.runAgent = async function(e) {
         e.preventDefault();
         state.repoSource = document.getElementById("repoSource").value;
         state.issueDescription = document.getElementById("issueDescription").value;
         state.errorLogs = document.getElementById("errorLogs").value;
-        state.llmProvider = document.getElementById("llmProvider").value;
-        state.maxIterations = Number(document.getElementById("maxIterations").value);
-        state.demonstrateSelfHealing = document.getElementById("demonstrateSelfHealing").checked;
-        state.createGithubPr = document.getElementById("createGithubPr").checked;
-        const apiKeyEl = document.getElementById("apiKey");
-        if (apiKeyEl) state.apiKey = apiKeyEl.value;
-        const ghTokenEl = document.getElementById("githubToken");
-        if (ghTokenEl) state.githubToken = ghTokenEl.value;
-
+        state.demonstrateSelfHealing = document.getElementById("selfHeal").checked;
         state.loading = true;
         state.error = "";
         render();
@@ -577,21 +333,17 @@
               repo_source: state.repoSource,
               issue_description: state.issueDescription,
               error_logs: state.errorLogs,
-              llm_provider: state.llmProvider,
-              api_key: state.apiKey || null,
-              github_token: state.githubToken || null,
-              create_github_pr: state.createGithubPr,
+              llm_provider: "auto",
               max_iterations: state.maxIterations,
               demonstrate_self_healing: state.demonstrateSelfHealing,
             }),
           });
           if (!resp.ok) {
-            const errData = await resp.json().catch(() => ({}));
-            throw new Error(errData.detail || "Agent pipeline failed");
+            const err = await resp.json().catch(() => ({}));
+            throw new Error(err.detail || "Run failed");
           }
-          const result = await resp.json();
-          state.currentRun = result;
-          state.runs = await fetch("/api/runs").then((r) => r.json());
+          state.currentRun = await resp.json();
+          state.runs = await fetch("/api/runs").then((x) => x.json());
         } catch (err) {
           state.error = err.message;
         } finally {
@@ -600,185 +352,93 @@
         }
       };
 
-      function renderActiveTabContent(run) {
-        if (state.activeTab === "self_healing") {
-          const itersHtml = (run.test_history || []).map((iter) => `
-            <div class="timeline-card ${iter.passed ? "passed" : "retry"}">
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem">
-                <span style="font-weight:700;font-size:0.92rem">Test Loop — Iteration #${iter.iteration}</span>
-                <span class="pill ${iter.passed ? "green" : "amber"}">
-                  ${iter.passed ? `PASSED (${iter.passed_count} passed)` : `FAILED (${iter.failed_count} failed → Self-Heal Triggered)`}
+      function renderTab(run) {
+        if (!run) {
+          return '<div style="padding:2rem;text-align:center">Select a sample repository on the left and click <strong>RUN AGENT PIPELINE</strong>.</div>';
+        }
+
+        if (state.activeTab === "timeline") {
+          const iters = (run.test_history || []).map((it) => `
+            <div class="item-row">
+              <div style="display:flex;justify-content:space-between;margin-bottom:0.4rem">
+                <strong>Iteration #${it.iteration}</strong>
+                <span class="badge ${it.passed ? "inverted" : ""}">
+                  ${it.passed ? `PASSED (${it.passed_count})` : `FAILED (${it.failed_count}) -> RETRY`}
                 </span>
               </div>
-              <p style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:0.6rem">${escapeHtml(iter.note)}</p>
-              <pre class="code-box" style="max-height:230px">${escapeHtml(iter.output)}</pre>
+              <div style="font-size:0.8rem;margin-bottom:0.5rem">${esc(it.note)}</div>
+              <pre class="code-block">${esc(it.output)}</pre>
             </div>
           `).join("");
 
-          const timelineHtml = (run.agent_timeline || []).map((step) => `
-            <div class="timeline-card ${step.status === "SELF_HEAL_RETRY" ? "retry" : "passed"}">
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.25rem">
-                <div>
-                  <span style="font-weight:700;color:var(--accent-blue);margin-right:0.5rem">
-                    Step ${step.step}: ${escapeHtml(step.agent)}
-                  </span>
-                  <span style="font-size:0.76rem;color:var(--text-secondary)">(${escapeHtml(step.role)})</span>
-                </div>
-                <div style="display:flex;gap:0.4rem;align-items:center">
-                  <span class="pill">${step.duration_ms} ms</span>
-                  <span class="pill ${step.status === "SELF_HEAL_RETRY" ? "amber" : "green"}">${escapeHtml(step.status)}</span>
-                </div>
+          const steps = (run.agent_timeline || []).map((st) => `
+            <div class="item-row">
+              <div style="display:flex;justify-content:space-between">
+                <strong>${st.step}. ${esc(st.agent)}</strong>
+                <span class="badge">${esc(st.status)} (${st.duration_ms} ms)</span>
               </div>
-              <div style="font-size:0.83rem">${escapeHtml(step.summary)}</div>
+              <div style="font-size:0.82rem;margin-top:0.25rem">${esc(st.summary)}</div>
             </div>
           `).join("");
 
           return `
-            <div style="display:flex;flex-direction:column;gap:1rem">
-              <div style="background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.35);border-radius:10px;padding:0.9rem 1.1rem">
-                <div style="font-weight:700;font-size:0.9rem;margin-bottom:0.25rem">
-                  ★ Agentic Highlight: Iterative Test → Inspect Failure → Modify Fix → Re-Test Loop
-                </div>
-                <div style="font-size:0.82rem;color:var(--text-secondary)">
-                  The Testing Agent executes <code>pytest</code> inside an isolated sandbox workspace. When a test fails, LangGraph routes the exact <code>pytest</code> failure traceback back to the Code Generation Agent, which modifies its proposed fix and re-runs the test suite until all tests pass.
-                </div>
-              </div>
-              <div class="grid-2">${itersHtml}</div>
-              <div>
-                <h4 style="font-size:0.9rem;margin-bottom:0.65rem">Step-by-Step Multi-Agent Execution Trace</h4>
-                <div class="timeline-list">${timelineHtml}</div>
-              </div>
+            <div class="grid-2">${iters}</div>
+            <div style="margin-top:1rem">
+              <div class="label" style="margin-bottom:0.5rem">AGENT EXECUTION STEPS</div>
+              ${steps}
             </div>
           `;
         }
 
-        if (state.activeTab === "root_cause" && run.root_cause_analysis) {
-          const rc = run.root_cause_analysis;
-          const bugsHtml = (rc.identified_bugs || []).map((bug) => `
-            <div class="timeline-card retry">
-              <div style="display:flex;justify-content:space-between;margin-bottom:0.3rem">
-                <span style="font-weight:700"><code>${escapeHtml(bug.file)}:${bug.line}</code> — <code>${escapeHtml(bug.symbol)}</code></span>
-                <div style="display:flex;gap:0.4rem">
-                  <span class="pill blue">${escapeHtml(bug.category)}</span>
-                  <span class="pill ${bug.severity === "HIGH" ? "red" : "amber"}">${escapeHtml(bug.severity)}</span>
-                </div>
+        if (state.activeTab === "bugs") {
+          const rc = run.root_cause_analysis || {};
+          const bugs = (rc.identified_bugs || []).map((b) => `
+            <div class="item-row">
+              <div style="display:flex;justify-content:space-between;margin-bottom:0.25rem">
+                <strong><code>${esc(b.file)}:${b.line}</code> (${esc(b.symbol)})</strong>
+                <span class="badge inverted">${esc(b.category)}</span>
               </div>
-              <div style="font-size:0.83rem">${escapeHtml(bug.explanation)}</div>
+              <div style="font-size:0.82rem">${esc(b.explanation)}</div>
             </div>
           `).join("");
 
           return `
-            <div style="display:flex;flex-direction:column;gap:1rem">
-              <div class="timeline-card passed">
-                <div style="display:flex;justify-content:space-between;margin-bottom:0.4rem">
-                  <span style="font-weight:700;font-size:0.95rem">Root Cause Summary (${escapeHtml(rc.primary_file)})</span>
-                  <span class="pill green">Confidence: ${Math.round((rc.confidence || 0.95) * 100)}%</span>
-                </div>
-                <p style="font-size:0.86rem;margin-bottom:0.6rem;font-weight:600">${escapeHtml(rc.summary)}</p>
-                <pre style="white-space:pre-wrap;font-size:0.81rem;color:var(--text-secondary);font-family:inherit">${escapeHtml(rc.detailed_explanation)}</pre>
-              </div>
-              <h4 style="font-size:0.9rem">Pinpointed Code Defects</h4>
-              <div class="timeline-list">${bugsHtml}</div>
+            <div class="item-row">
+              <strong>Summary:</strong> ${esc(rc.summary)}
+              <pre style="margin-top:0.5rem;white-space:pre-wrap;font-size:0.8rem">${esc(rc.detailed_explanation)}</pre>
             </div>
+            ${bugs}
           `;
         }
 
-        if (state.activeTab === "diff_tests") {
+        if (state.activeTab === "diff") {
           return `
             <div class="grid-2">
               <div>
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem">
-                  <h4 style="font-size:0.9rem">Proposed Unified Code Diff</h4>
-                  <div style="display:flex;gap:0.4rem;align-items:center">
-                    <span class="pill green">Iteration ${run.proposed_changes?.iteration || 1}</span>
-                    <button type="button" class="btn-preset" style="padding:0.22rem 0.55rem;font-size:0.72rem" onclick="downloadPatch()">
-                      ⬇ Download .patch
-                    </button>
-                  </div>
-                </div>
-                ${renderDiff(run.proposed_changes?.unified_diff)}
+                <div class="label">PROPOSED CODE DIFF</div>
+                <pre class="code-block">${esc(run.proposed_changes?.unified_diff)}</pre>
               </div>
               <div>
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem">
-                  <h4 style="font-size:0.9rem">Generated Pytest Suite (${escapeHtml(run.generated_tests?.test_file_path)})</h4>
-                  <span class="pill blue">${(run.generated_tests?.test_cases_summary || []).length} Tests</span>
-                </div>
-                <pre class="code-box">${escapeHtml(run.generated_tests?.test_code)}</pre>
+                <div class="label">GENERATED UNIT TESTS (${esc(run.generated_tests?.test_file_path)})</div>
+                <pre class="code-block">${esc(run.generated_tests?.test_code)}</pre>
               </div>
             </div>
           `;
         }
 
-        if (state.activeTab === "code_structure" && run.code_structure) {
-          const cs = run.code_structure;
-          const filesHtml = (cs.files || []).map((f) => `
-            <div style="padding:0.55rem;background:var(--bg-primary);border-radius:6px;margin-bottom:0.45rem;font-size:0.8rem">
-              <div style="font-weight:700;color:var(--accent-blue)">${escapeHtml(f.file)} (${f.line_count} lines)</div>
-              <div style="color:var(--text-secondary);font-size:0.75rem">
-                Classes: ${(f.classes || []).map((c) => c.name).join(", ") || "None"} |
-                Functions: ${(f.functions || []).map((fn) => fn.name).join(", ") || "None"}
-              </div>
-            </div>
-          `).join("");
-
-          const chunksList = state.vectorResults.length > 0 ? state.vectorResults : (cs.top_relevant_chunks || []);
-          const chunksHtml = chunksList.map((chunk) => `
-            <div style="padding:0.55rem;background:var(--bg-primary);border-radius:6px;font-size:0.78rem;display:flex;justify-content:space-between;align-items:center">
-              <div><code>${escapeHtml(chunk.symbol_name)}</code> <span style="color:var(--text-secondary)">(${escapeHtml(chunk.file_path)})</span></div>
-              <span class="pill green">Score: ${chunk.similarity}</span>
-            </div>
-          `).join("");
-
+        if (state.activeTab === "pr") {
+          const pr = run.pull_request || {};
+          const rev = run.code_review || {};
           return `
-            <div class="grid-2">
-              <div class="timeline-card">
-                <h4 style="font-size:0.88rem;margin-bottom:0.5rem">AST Structure Map (${cs.total_files} files, ${cs.total_lines} lines)</h4>
-                ${filesHtml}
+            <div class="item-row">
+              <div style="display:flex;justify-content:space-between">
+                <strong>Code Review Verdict: ${esc(rev.verdict)} (Score: ${rev.score}/100)</strong>
+                <span class="badge inverted">${esc(pr.branch)} -> ${esc(pr.base_branch)}</span>
               </div>
-              <div class="timeline-card">
-                <h4 style="font-size:0.88rem;margin-bottom:0.5rem">Interactive pgvector Semantic Code Search (${cs.chunks_indexed} chunks indexed)</h4>
-                <form onsubmit="runVectorSearch(event)" style="display:flex;gap:0.5rem;margin-bottom:0.75rem">
-                  <input id="vector-query-input" class="input" value="${escapeHtml(state.vectorQuery)}" placeholder="Search symbols..." />
-                  <button type="submit" class="btn-primary" style="width:auto;white-space:nowrap">Search Vectors</button>
-                </form>
-                <div style="display:flex;flex-direction:column;gap:0.45rem">${chunksHtml}</div>
-              </div>
+              <div style="font-size:0.82rem;margin-top:0.35rem">${esc(rev.summary)}</div>
             </div>
-          `;
-        }
-
-        if (state.activeTab === "pr_review" && run.pull_request) {
-          const checklistHtml = (run.code_review?.checklist || []).map((item) => `
-            <div style="padding:0.55rem;background:var(--bg-primary);border-radius:6px;font-size:0.8rem">
-              <div style="font-weight:700;color:${item.passed ? "#34d399" : "#f87171"}">${item.passed ? "✓" : "✗"} ${escapeHtml(item.item)}</div>
-              <div style="color:var(--text-secondary);font-size:0.76rem">${escapeHtml(item.comment)}</div>
-            </div>
-          `).join("");
-
-          return `
-            <div class="grid-2">
-              <div class="timeline-card passed">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.6rem">
-                  <h4 style="font-size:0.92rem">Code Review Agent Verdict</h4>
-                  <span class="pill green">${escapeHtml(run.code_review?.verdict)} • Score: ${run.code_review?.score}/100</span>
-                </div>
-                <p style="font-size:0.83rem;margin-bottom:0.85rem">${escapeHtml(run.code_review?.summary)}</p>
-                <div style="display:flex;flex-direction:column;gap:0.45rem">${checklistHtml}</div>
-              </div>
-              <div class="timeline-card">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem">
-                  <h4 style="font-size:0.92rem">Pull Request #${run.pull_request.pr_number}</h4>
-                  <div style="display:flex;gap:0.4rem;align-items:center">
-                    <span class="pill blue">Branch: ${escapeHtml(run.pull_request.branch)} → ${escapeHtml(run.pull_request.base_branch)}</span>
-                    <button type="button" class="btn-preset" style="padding:0.22rem 0.55rem;font-size:0.72rem" onclick="copyPrMarkdown()">
-                      ${state.copiedPr ? "✓ Copied!" : "📋 Copy PR Markdown"}
-                    </button>
-                  </div>
-                </div>
-                <div style="font-weight:700;font-size:0.88rem;margin-bottom:0.5rem">${escapeHtml(run.pull_request.title)}</div>
-                <pre class="code-box" style="white-space:pre-wrap">${escapeHtml(run.pull_request.body_markdown)}</pre>
-              </div>
-            </div>
+            <div class="label">${esc(pr.title)}</div>
+            <pre class="code-block">${esc(pr.body_markdown)}</pre>
           `;
         }
 
@@ -786,185 +446,116 @@
       }
 
       function render() {
-        const root = document.getElementById("root");
-        const presetsHtml = state.samples.map((s, idx) => `
-          <button type="button" class="btn-preset ${state.repoSource === s.repo_source ? "active" : ""}" onclick="selectSample(${idx})">
-            <div style="font-weight:700;margin-bottom:2px">${escapeHtml(s.name)}</div>
-            <div style="font-size:0.68rem;color:var(--text-secondary)">${escapeHtml(s.repo_source)}</div>
+        const sampleBtns = state.samples.map((s, i) => `
+          <button type="button" class="btn ${state.repoSource === s.repo_source ? "active" : ""}" onclick="pickSample(${i})">
+            ${esc(s.repo_source.replace("sample:", ""))}
           </button>
         `).join("");
 
-        const runsHtml = state.runs.slice(0, 6).map((r, idx) => `
-          <button type="button" class="btn-preset ${state.currentRun?.id === r.id ? "active" : ""}" onclick="selectRun(${idx})" style="display:flex;justify-content:space-between;align-items:center">
-            <div>
-              <div style="font-weight:700">${escapeHtml(r.repo_name)}</div>
-              <div style="font-size:0.7rem;color:var(--text-secondary)">${escapeHtml(r.id)} • ${r.iterations_used} iter(s)</div>
-            </div>
-            <span class="pill ${r.tests_passed ? "green" : "red"}">${r.tests_passed ? "TESTS PASSED" : escapeHtml(r.status)}</span>
+        const historyBtns = state.runs.slice(0, 5).map((r, i) => `
+          <button type="button" class="btn ${state.currentRun?.id === r.id ? "active" : ""}" onclick="pickRun(${i})" style="display:flex;justify-content:space-between;width:100%;margin-bottom:0.35rem">
+            <span>${esc(r.repo_name)} (${r.iterations_used} iter)</span>
+            <span>${r.tests_passed ? "PASS" : r.status}</span>
           </button>
         `).join("");
 
-        const pipelineCardsHtml = AGENT_PIPELINE.map((ag) => {
-          const isSelfHealed = state.currentRun && state.currentRun.iterations_used > 1 &&
-            (ag.key === "Code Generation Agent" || ag.key === "Testing Agent");
-          return `
-            <div class="agent-node-card ${state.currentRun ? "done" : ""} ${isSelfHealed ? "healed" : ""}">
-              <div class="agent-node-index">${ag.index}</div>
-              <div class="agent-node-name">${ag.name}</div>
-              <div class="agent-node-desc">${ag.desc}</div>
-              ${isSelfHealed ? `<div style="margin-top:0.4rem"><span class="pill amber" style="font-size:0.66rem">↻ Self-Healed (${state.currentRun.iterations_used}x)</span></div>` : ""}
-            </div>
-          `;
-        }).join("");
-
-        root.innerHTML = `
-          <div class="app-shell">
-            <header class="topbar">
-              <div class="brand">
-                <div class="brand-icon">AI</div>
-                <div>
-                  <div class="brand-title">AI Software Engineering Agent</div>
-                  <div class="brand-subtitle">Unified Full-Stack App • 5-Agent LangGraph Orchestrator • Self-Healing Pytest Loop</div>
-                </div>
-              </div>
-              <div class="status-pills">
-                <span class="pill green">● Backend: ${state.health ? "Connected" : "Connecting..."}</span>
-                <span class="pill blue">Vector DB: ${escapeHtml(state.health?.database_backend || "pgvector")}</span>
-                <span class="pill amber">Orchestrator: LangGraph 5-Agent StateGraph</span>
-              </div>
-            </header>
-
-            <main class="main-layout">
-              <aside style="display:flex;flex-direction:column;gap:1.1rem">
-                <section class="panel">
-                  <div class="panel-title">
-                    <span>1. Target Repository & Bug Context</span>
-                    <span class="pill blue">Input</span>
-                  </div>
-
-                  <div>
-                    <span class="form-label">Quick-Load Built-In Buggy Repositories:</span>
-                    <div class="preset-buttons">${presetsHtml}</div>
-                  </div>
-
-                  <form onsubmit="submitRunForm(event)">
-                    <div class="form-group">
-                      <label class="form-label">GitHub Repository URL, Local Path, or Sample ID</label>
-                      <input id="repoSource" class="input" value="${escapeHtml(state.repoSource)}" required />
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label">Issue Description</label>
-                      <textarea id="issueDescription" class="textarea">${escapeHtml(state.issueDescription)}</textarea>
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label">Error Logs / Stack Trace</label>
-                      <textarea id="errorLogs" class="textarea">${escapeHtml(state.errorLogs)}</textarea>
-                    </div>
-
-                    <div class="grid-2" style="margin-bottom:0.75rem">
-                      <div>
-                        <label class="form-label">LLM Engine</label>
-                        <select id="llmProvider" class="select">
-                          <option value="auto" ${state.llmProvider === "auto" ? "selected" : ""}>Auto (Gemini / OpenAI / AST)</option>
-                          <option value="gemini" ${state.llmProvider === "gemini" ? "selected" : ""}>Gemini API (google-genai)</option>
-                          <option value="openai" ${state.llmProvider === "openai" ? "selected" : ""}>OpenAI API</option>
-                          <option value="mock" ${state.llmProvider === "mock" ? "selected" : ""}>Offline AST Engine</option>
-                        </select>
-                      </div>
-                      <div>
-                        <label class="form-label">Max Test Iterations</label>
-                        <select id="maxIterations" class="select">
-                          <option value="1" ${state.maxIterations === 1 ? "selected" : ""}>1 Iteration</option>
-                          <option value="2" ${state.maxIterations === 2 ? "selected" : ""}>2 Iterations</option>
-                          <option value="3" ${state.maxIterations === 3 ? "selected" : ""}>3 Iterations (Recommended)</option>
-                          <option value="5" ${state.maxIterations === 5 ? "selected" : ""}>5 Iterations</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div class="form-group">
-                      <label class="form-label">Optional Gemini / OpenAI API Key</label>
-                      <input id="apiKey" type="password" class="input" value="${escapeHtml(state.apiKey)}" placeholder="AIza... or sk-... (blank for offline AST engine)" />
-                    </div>
-
-                    <label class="checkbox-row">
-                      <input id="demonstrateSelfHealing" type="checkbox" ${state.demonstrateSelfHealing ? "checked" : ""} />
-                      <span><strong>Demonstrate Self-Healing Loop</strong> (Iter 1 catches test failure → Iter 2 modifies fix & passes)</span>
-                    </label>
-
-                    <label class="checkbox-row">
-                      <input id="createGithubPr" type="checkbox" ${state.createGithubPr ? "checked" : ""} />
-                      <span>Push & Create Live GitHub PR</span>
-                    </label>
-
-                    <button class="btn-primary" type="submit" ${state.loading ? "disabled" : ""}>
-                      ${state.loading ? "Running 5-Agent Pipeline & Pytest Loop..." : "▶ Launch AI Software Engineering Agent"}
-                    </button>
-                  </form>
-
-                  ${state.error ? `<div style="margin-top:0.85rem;padding:0.65rem;border-radius:8px;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.4);color:#fca5a5;font-size:0.8rem">${escapeHtml(state.error)}</div>` : ""}
-                </section>
-
-                <section class="panel">
-                  <div class="panel-title"><span>Recent Agent Runs (${state.runs.length})</span></div>
-                  <div style="display:flex;flex-direction:column;gap:0.45rem">
-                    ${runsHtml || '<div style="font-size:0.8rem;color:var(--text-secondary)">No runs yet.</div>'}
-                  </div>
-                </section>
-              </aside>
-
-              <section style="display:flex;flex-direction:column;gap:1rem">
-                <div class="panel">
-                  <div class="panel-title">
-                    <span>LangGraph 5-Agent Orchestration Pipeline</span>
-                    ${state.currentRun ? `
-                      <div style="display:flex;gap:0.5rem">
-                        <span class="pill blue">Run ID: ${escapeHtml(state.currentRun.id)}</span>
-                        <span class="pill ${state.currentRun.tests_passed ? "green" : "amber"}">
-                          Self-Healing Iterations: ${state.currentRun.iterations_used} / ${state.currentRun.max_iterations}
-                        </span>
-                      </div>
-                    ` : ""}
-                  </div>
-
-                  <div class="agent-flow-bar">${pipelineCardsHtml}</div>
-
-                  ${!state.currentRun ? `
-                    <div style="text-align:center;padding:2.5rem 1rem;color:var(--text-secondary)">
-                      <h3 style="color:var(--text-primary);margin-bottom:0.4rem">Ready to Diagnose, Fix, Test & Open a Pull Request</h3>
-                      <p style="font-size:0.86rem;max-width:620px;margin:0 auto">
-                        Select a repository on the left and click <strong>Launch AI Software Engineering Agent</strong>.
-                      </p>
-                    </div>
-                  ` : `
-                    <nav class="tabs-nav">
-                      <button class="tab-btn ${state.activeTab === "self_healing" ? "active" : ""}" onclick="setTab('self_healing')">
-                        1. Self-Healing Test Loop (${state.currentRun.iterations_used} Iterations)
-                      </button>
-                      <button class="tab-btn ${state.activeTab === "root_cause" ? "active" : ""}" onclick="setTab('root_cause')">
-                        2. Debugging & Root Cause (${state.currentRun.root_cause_analysis?.identified_bugs?.length || 0} Bugs)
-                      </button>
-                      <button class="tab-btn ${state.activeTab === "diff_tests" ? "active" : ""}" onclick="setTab('diff_tests')">
-                        3. Code Fix Diff & Unit Tests
-                      </button>
-                      <button class="tab-btn ${state.activeTab === "code_structure" ? "active" : ""}" onclick="setTab('code_structure')">
-                        4. Code Structure & pgvector Search
-                      </button>
-                      <button class="tab-btn ${state.activeTab === "pr_review" ? "active" : ""}" onclick="setTab('pr_review')">
-                        5. Code Review & Pull Request
-                      </button>
-                    </nav>
-                    ${renderActiveTabContent(state.currentRun)}
-                  `}
-                </div>
-              </section>
-            </main>
+        const agentsBar = AGENTS.map((a) => `
+          <div class="agent-step ${state.currentRun ? "active-step" : ""}">
+            <div style="font-size:0.7rem;font-weight:700">AGENT ${a.num}</div>
+            <div style="font-size:0.82rem;font-weight:700">${a.name}</div>
+            <div style="font-size:0.72rem;opacity:0.8">${a.desc}</div>
           </div>
+        `).join("");
+
+        document.getElementById("root").innerHTML = `
+          <header class="header">
+            <div>
+              <div class="header-title">AI SOFTWARE ENGINEERING AGENT</div>
+              <div class="header-sub">5-Agent LangGraph Pipeline • Self-Healing Test Loop</div>
+            </div>
+            <div>
+              <span class="badge inverted">${state.health ? "ONLINE" : "CONNECTING"}</span>
+              <span class="badge">${esc(state.health?.database_backend || "local")}</span>
+            </div>
+          </header>
+
+          <main class="container">
+            <aside>
+              <div class="box">
+                <div class="box-title">
+                  <span>Input Repository</span>
+                </div>
+
+                <div class="field">
+                  <span class="label">Sample Buggy Repos:</span>
+                  <div style="display:flex;flex-direction:column;gap:0.35rem">${sampleBtns}</div>
+                </div>
+
+                <form onsubmit="runAgent(event)">
+                  <div class="field">
+                    <label class="label">Repo URL / Path / Sample ID</label>
+                    <input id="repoSource" class="input" value="${esc(state.repoSource)}" required />
+                  </div>
+                  <div class="field">
+                    <label class="label">Issue Description</label>
+                    <textarea id="issueDescription" class="textarea">${esc(state.issueDescription)}</textarea>
+                  </div>
+                  <div class="field">
+                    <label class="label">Error Logs</label>
+                    <textarea id="errorLogs" class="textarea">${esc(state.errorLogs)}</textarea>
+                  </div>
+                  <div class="field">
+                    <label style="font-size:0.78rem;display:flex;gap:0.4rem;align-items:center;cursor:pointer">
+                      <input id="selfHeal" type="checkbox" ${state.demonstrateSelfHealing ? "checked" : ""} />
+                      <span>Demonstrate Self-Healing Retry Loop</span>
+                    </label>
+                  </div>
+                  <button type="submit" class="btn-run" ${state.loading ? "disabled" : ""}>
+                    ${state.loading ? "RUNNING AGENTS..." : "RUN AGENT PIPELINE"}
+                  </button>
+                </form>
+
+                ${state.error ? `<div style="border:1px solid #000;padding:0.5rem;margin-top:0.75rem;font-size:0.78rem">ERROR: ${esc(state.error)}</div>` : ""}
+              </div>
+
+              <div class="box">
+                <div class="box-title"><span>Recent Runs</span></div>
+                ${historyBtns || '<div style="font-size:0.78rem">No runs yet.</div>'}
+              </div>
+            </aside>
+
+            <section>
+              <div class="box">
+                <div class="box-title">
+                  <span>5-Agent Pipeline</span>
+                  ${state.currentRun ? `<span class="badge inverted">Iterations: ${state.currentRun.iterations_used} | Tests Passed: ${state.currentRun.tests_passed ? "YES" : "NO"}</span>` : ""}
+                </div>
+
+                <div class="pipeline-grid">${agentsBar}</div>
+
+                <div class="tabs">
+                  <button class="tab ${state.activeTab === "timeline" ? "active" : ""}" onclick="switchTab('timeline')">
+                    1. Self-Healing Test Loop
+                  </button>
+                  <button class="tab ${state.activeTab === "bugs" ? "active" : ""}" onclick="switchTab('bugs')">
+                    2. Root Cause Analysis
+                  </button>
+                  <button class="tab ${state.activeTab === "diff" ? "active" : ""}" onclick="switchTab('diff')">
+                    3. Code Fix & Unit Tests
+                  </button>
+                  <button class="tab ${state.activeTab === "pr" ? "active" : ""}" onclick="switchTab('pr')">
+                    4. Code Review & PR
+                  </button>
+                </div>
+
+                ${renderTab(state.currentRun)}
+              </div>
+            </section>
+          </main>
         `;
       }
 
-      initApp();
+      init();
     </script>
   </body>
 </html>
-

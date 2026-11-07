@@ -1,0 +1,22 @@
+# Python & pytest
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.venv/
+venv/
+ENV/
+
+# Runtime SQLite & Sandbox Workspaces
+backend/*.db
+backend/*.db-journal
+backend/workspaces/
+
+# Node & Frontend
+node_modules/
+frontend/node_modules/
+frontend/dist/
+
+# Environment variables
+.env
+.env.local
